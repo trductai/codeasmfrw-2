@@ -1,36 +1,52 @@
+import { useMutation, useQuery } from '@tanstack/react-query'
+import axios from 'axios'
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { IProduct } from '../../interface/product'
-import { useMutation } from '@tanstack/react-query'
-import axios from 'axios'
-import { createData } from '../../services/data'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
-const ProductAdd = () => {
-    const nav=useNavigate();
-  const {register,handleSubmit, formState:{errors}} = useForm<IProduct>()
+const EditBest = () => {
+  const {register,handleSubmit,reset, formState:{errors}} = useForm<IProduct>()
+  const params = useParams()
+  const query = useQuery<IProduct>({
+    queryKey:['products',params.id],
+    queryFn:async()=>{
+      try {
+          const {data:product} = await axios.get(`http://localhost:3000/products/${params.id}`)
+          reset(product)
+          return product
+        } catch (error) {
+        
+      }
+    }
+  })
+  const navigate = useNavigate()
   const mutation = useMutation({
     mutationFn: async (data:IProduct)=>{
         try {
-            const {data:product} = await createData<IProduct>({route:"products",data:data})
+            const {data:product} = await axios.put(`http://localhost:3000/products/${params.id}`,data)
             return product
           } catch (error) {
           console.log(error);
           
         }
     },
-    onSuccess: (data)=>{
-      console.log(data);      
-        alert("Thêm mới thành công")
-        nav("/dashboard/productlist_bestselling")
+    onSuccess: (data)=>{    
+        alert("Cập nhật thành công")
+        navigate("/dashboard/productlist_bestselling")
     }
   })
   const onSubmit = (productData:IProduct)=>{
     mutation.mutate(productData)
+    // console.log(productData);
+    
+  }
+  if (query.isLoading){
+    return <>Đang tải</>
   }
   return (
     <div className='w-full max-w-xl mx-auto p-4'>
-      <h1 className="text-2xl font-semibold text-center mb-6">Thêm Mới sản phẩm bestSelling</h1>
+      <h1 className="text-2xl font-semibold text-center mb-6">Cập nhật sản phẩm</h1>
       <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
        <div>
        <input type='text' placeholder="Nhập tên sản phẩm"
@@ -86,10 +102,10 @@ const ProductAdd = () => {
     })}/>
             <div className="text-danger">{errors.rating?.message}</div>
         </div>
-        <button className="w-full py-2 bg-blue-500 hover:bg-blue-700 text-white rounded-lg">Thêm Mới</button>
+        <button className="w-full py-2 bg-blue-500 hover:bg-blue-700 text-white rounded-lg">Cập nhật</button>
       </form>
     </div>
   )
 }
 
-export default ProductAdd
+export default EditBest

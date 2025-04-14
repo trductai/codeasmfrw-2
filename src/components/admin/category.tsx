@@ -6,7 +6,7 @@ import { Button, message, Popconfirm, Table } from 'antd'
 import { CheckCircleFilled, DeleteOutlined, EditOutlined } from '@ant-design/icons'
 import { Link, useNavigate } from 'react-router-dom'
 
-const ProductList = () => {
+const Category = () => {
     const {data,isLoading} = useQuery<IProduct[]>({ 
         queryKey: ['book'], 
         queryFn: async ()=>{
@@ -81,6 +81,7 @@ const ProductList = () => {
             </>
         }
       ];
+      
   return (
     <div className='bg-white px-4 py-2'>
         <h1 className='text-[24px] text-center'>Danh sách sản phẩm</h1>
@@ -94,4 +95,4 @@ const ProductList = () => {
   )
 }
 
-export default ProductList
+export default Category

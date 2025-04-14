@@ -1,143 +1,235 @@
 {
-  "books": [
-    {
-      "name": "Breed Dry Dog Food",
-      "price": "100",
-      "oldPrice": "120",
-      "reviews": "35",
-      "rating": 3,
-      "image": "/public/img/p1.png"
-  },
-  {
-      "name": "CANON EOS DSLR Camera",
-      "price": "360",
-      "oldPrice": "500",
-      "reviews": "95",
-      "rating": 4,
-      "image": "/public/img/p2.png"
-  },
-  {
-      "name": "ASUS FHD Gaming Laptop",
-      "price": "700",
-      "oldPrice": "900",
-      "reviews": "325",
-      "rating": 5,
-      "image": "/public/img/p3.png"
-  },
-  {
-      "name": "Curology Product Set",
-      "price": "500",
-      "oldPrice": "600",
-      "reviews": "145",
-      "rating": 4,
-      "image": "/public/img/p4.png"
-  },
-  {
-      "name": "Kids Electric Car",
-      "price": "960",
-      "oldPrice": "1200",
-      "reviews": "65",
-      "rating": 5,
-
-      "image": "/public/img/p5.png"
-  },
-  {
-      "name": "Jr. Zoom Soccer Cleats",
-      "price": "1160",
-      "oldPrice": "1300",
-      "reviews": "35",
-      "rating": 5,
-      "image": "/public/img/p6.png"
-  },
-  {
-      "name": "GP11 Shooter USB Gamepad",
-      "price": "660",
-      "oldPrice": "700",
-      "reviews": "55",
-      "rating": 4.5,
-      "image": "/public/img/p7.png"
-  },
-  {
-      "name": "Quilted Satin Jacket",
-      "price": "660",
-      "oldPrice": "750",
-      "reviews": "55",
-      "rating": 4.5,
-      "image": "/public/img/p8.png"
-  }
-  ],
   "products": [
     {
-      "name": "The north coat",
+      "id": 1,
+      "name": "hhhhh",
       "image": "/public/img/anh1.png",
-      "price": 260,
+      "price": "10000",
       "oldPrice": 360,
-      "rating": 5,
+      "rating": "2",
       "reviews": 65,
-      "description":"PlayStation 5 Controller Skin High quality vinyl with air channel adhesive for easy bubble free install & mess free removal Pressure sensitive."
+      "description": "PlayStation 5 Controller Skin High quality vinyl with air channel adhesive for easy bubble free install & mess free removal Pressure sensitive.",
+      "images": [
+        "/src/assets/img/Frame 895 (1).png",
+        "/src/assets/img/Frame 896.png",
+        "/src/assets/img/Frame 897.png"
+      ],
+      "colors": [
+        "bg-gray-800",
+        "bg-red-500"
+      ],
+      "sizes": [
+        "S",
+        "M",
+        "L"
+      ]
     },
     {
+      "id": 2,
       "name": "Gucci duffle bag",
       "image": "/public/img/anh2.png",
       "price": 960,
       "oldPrice": 1160,
       "rating": 4.5,
       "reviews": 65,
-      "description":"PlayStation 5 Controller Skin High quality vinyl with air channel adhesive for easy bubble free install & mess free removal Pressure sensitive."
-
+      "description": "PlayStation 5 Controller Skin High quality vinyl with air channel adhesive for easy bubble free install & mess free removal Pressure sensitive."
     },
     {
+      "id": 3,
       "name": "RGB liquid CPU Cooler",
       "image": "/public/img/anh3.png",
       "price": 160,
       "oldPrice": 170,
       "rating": 4.5,
       "reviews": 65,
-      "description":"PlayStation 5 Controller Skin High quality vinyl with air channel adhesive for easy bubble free install & mess free removal Pressure sensitive."
-
+      "description": "PlayStation 5 Controller Skin High quality vinyl with air channel adhesive for easy bubble free install & mess free removal Pressure sensitive."
     },
     {
+      "id": 4,
       "name": "Small BookSelf",
       "image": "/public/img/anh4.png",
       "price": 360,
       "rating": 5,
       "reviews": 65,
-      "description":"PlayStation 5 Controller Skin High quality vinyl with air channel adhesive for easy bubble free install & mess free removal Pressure sensitive."
-
+      "description": "PlayStation 5 Controller Skin High quality vinyl with air channel adhesive for easy bubble free install & mess free removal Pressure sensitive."
     }
   ],
-  "variants": [],
-  "carts": [
+  "book": [
     {
       "id": 1,
-      "userId": 1,
-      "Items": [
-        {
-          "productId": 1,
-          "quantity": 3
-        },
-        {
-          "productId": 10,
-          "quantity": 1
-        },
-        {
-          "productId": 2,
-          "quantity": "3"
-        }
-      ]
+      "name": "hhhhh",
+      "image": "/public/img/anh1.png",
+      "price": "10000",
+      "oldPrice": 360,
+      "rating": "2",
+      "reviews": 65,
+      "description": "PlayStation 5 Controller Skin High quality vinyl with air channel adhesive for easy bubble free install & mess free removal Pressure sensitive.",
+      "images": [
+        "/src/assets/img/Frame 895 (1).png",
+        "/src/assets/img/Frame 896.png",
+        "/src/assets/img/Frame 897.png"
+      ],
+      "colors": [
+        "bg-gray-800",
+        "bg-red-500"
+      ],
+      "sizes": [
+        "S",
+        "M",
+        "L"
+      ],
+      "bestSelling": true
+    },
+    {
+      "id": 2,
+      "name": "Gucci duffle bag",
+      "image": "/public/img/anh2.png",
+      "price": 960,
+      "oldPrice": 1160,
+      "rating": 4.5,
+      "reviews": 65,
+      "description": "PlayStation 5 Controller Skin High quality vinyl with air channel adhesive for easy bubble free install & mess free removal Pressure sensitive.",
+      "bestSelling": true
+    },
+    {
+      "id": 3,
+      "name": "RGB liquid CPU Cooler",
+      "image": "/public/img/anh3.png",
+      "price": 160,
+      "oldPrice": 170,
+      "rating": 4.5,
+      "reviews": 65,
+      "description": "PlayStation 5 Controller Skin High quality vinyl with air channel adhesive for easy bubble free install & mess free removal Pressure sensitive.",
+      "bestSelling": true
+    },
+    {
+      "id": 4,
+      "name": "Small BookSelf",
+      "image": "/public/img/anh4.png",
+      "price": 360,
+      "rating": 5,
+      "reviews": 65,
+      "description": "PlayStation 5 Controller Skin High quality vinyl with air channel adhesive for easy bubble free install & mess free removal Pressure sensitive.",
+      "bestSelling": true
+    },
+    {
+      "id": 2,
+      "name": "CANON EOS DSLR Camera",
+      "price": "360",
+      "oldPrice": "500",
+      "reviews": "95",
+      "rating": 4,
+      "image": "/public/img/p2.png"
+    },
+    {
+      "id": 3,
+      "name": "ASUS FHD Gaming Laptop",
+      "price": "700",
+      "oldPrice": "900",
+      "reviews": "325",
+      "rating": 5,
+      "image": "/public/img/p3.png"
+    },
+    {
+      "id": 4,
+      "name": "Curology Product Set",
+      "price": "500",
+      "oldPrice": "600",
+      "reviews": "145",
+      "rating": 4,
+      "image": "/public/img/p4.png"
+    },
+    {
+      "id": 5,
+      "name": "Kids Electric Car",
+      "price": "960",
+      "oldPrice": "1200",
+      "reviews": "65",
+      "rating": 5,
+      "image": "/public/img/p5.png"
+    },
+    {
+      "id": 6,
+      "name": "Jr. Zoom Soccer Cleats",
+      "price": "1160",
+      "oldPrice": "1300",
+      "reviews": "35",
+      "rating": 5,
+      "image": "/public/img/p6.png"
+    },
+    {
+      "id": 7,
+      "name": "GP11 Shooter USB Gamepad",
+      "price": "660",
+      "oldPrice": "700",
+      "reviews": "55",
+      "rating": 4.5,
+      "image": "/public/img/p7.png"
+    },
+    {
+      "id": 8,
+      "name": "Quilted Satin Jacket",
+      "price": "660",
+      "oldPrice": "750",
+      "reviews": "55",
+      "rating": 4.5,
+      "image": "/public/img/p8.png"
+    },
+    {
+      "name": "“WHENEVER” CANDY T-SHIRT / NAVY",
+      "image": "https://product.hstatic.net/200000725513/product/5958a716-732b-4d92-b91f-9494024c487d_c5b58948356844409853a2331ee54458_master.jpg",
+      "price": "3000",
+      "rating": "5",
+      "images": [
+        "https://product.hstatic.net/200000725513/product/5958a716-732b-4d92-b91f-9494024c487d_c5b58948356844409853a2331ee54458_master.jpg",
+        "https://product.hstatic.net/200000725513/product/3e314bca-9c79-4f0a-a436-f13b395d0afa_9840aeee27d34f9fbb0037bc23ebf76f_master.jpg",
+        "https://product.hstatic.net/200000725513/product/77ea36b8-2d75-4786-8a1e-ba463be4d3f8_6ff6d40ca9a6494290d90c51b01b3d86_master.jpg",
+        "https://product.hstatic.net/200000725513/product/f63b3470-5479-4a7c-add4-c77ef5c651a3_ee151f0b7a5f4ab89853d6369ac93cfb_master.jpg"
+      ],
+      "sizes": [
+        "M",
+        "L",
+        "XL"
+      ],
+      "reviews": "60",
+      "colors": [
+        "bg-gray-800",
+        "bg-red-500"
+      ],
+      "id": 9
     }
   ],
-  "orders": [],
   "users": [
     {
-      "email": "angocit@gmail.com",
-      "password": "$2a$10$mUc1H/gnjo5gzQTWK/uW3O.pUi8nO36K3mjTOx4aSK6uOF7/3N21a",
+      "email": "ductai1425@gmail.com",
+      "password": "$2a$10$XF2oQu1iONlvlEC/hQ.tu.GIRAwly1BY0iKPxUFNQ.qewTJEYB3BC",
       "id": 1
     },
     {
-      "email": "angocit2@gmail.com",
-      "password": "$2a$10$JrV4oOOxPsLlvX21FyRs9.aZtz2MYaxWHAX6K68G38hASMLjGdCsG",
+      "email": "aaaa@gmail.com",
+      "password": "$2a$10$QGzEDU23.nX0UWA4hr6tK.f6LEW9sSVgMnl/Jx8hvPzOqk6CZhe/m",
       "id": 2
+    },
+    {
+      "email": "abcd123@gmail.com",
+      "password": "$2a$10$tHc/IQbWB6hHNcS5X2iBfegUtefKEalQkwRPzOuy.gRuawXlH3cN.",
+      "id": 3
+    },
+    {
+      "email": "abc123@gmail.com",
+      "password": "$2a$10$yFSU9UK634zU9gibWW9A4.RuYmrIHCs3M2a9iy0pfq3X7vUgFVAki",
+      "id": 4
+    },
+    {
+      "email": "aaaa222@gmail.com",
+      "password": "$2a$10$D4ywrkajyPdQhf5OJfb6feZmmDLhrYZecMZRnK9UnTUwXGJ1/9fNW",
+      "id": 5
+    },
+    {
+      "email": "trductai1425@gmail.com",
+      "password": "$2a$10$TSPDv8vChfW7cuJG1V/CpOTjj9Fqa5/ZE/JoQnwSwl/CunOaAc106",
+      "id": 6
     }
-  ]
+  ],
+  "carts": []
 }

@@ -1,42 +1,40 @@
-import React from 'react';
-import { useNavigate } from "react-router-dom"; // Import useNavigate từ react-router-dom
-import { useForm, SubmitHandler } from "react-hook-form";
 import axios from "axios";
+import { useForm, SubmitHandler } from "react-hook-form"; // xử lý dữ liệu trong form
+import { FaRegUser, FaSearch, FaShoppingCart } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
-type LoginInput = {
-  email: string;
-  password: string;
+type RegisterInput = {
+    email: string;
+    password: string;
 };
 
-function Login() {
-  const nav = useNavigate();  // Hook điều hướng
+function Register() {
+    const nav=useNavigate()
+    // khai báo register và handleSubmit để làm việc với form
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<RegisterInput>();
 
-  // Khai báo register và handleSubmit để làm việc với form
-  const {
-    register,
-    handleSubmit,
-    formState: { errors }
-  } = useForm<LoginInput>();
+    // khai báo hàm onSubmitForm khi người dùng bấm nút submit
+    const onSubmitForm: SubmitHandler<RegisterInput> = async (data) => {
+        try {
+            // gọi api đăng ký tài khoản
+            const res = await axios.post('http://localhost:3000/register', data);
+            // Lấy access token và lưu vào localStorage
+            if (res.status === 200) {
+                localStorage.setItem('token', res.data.accessToken);
+            }
+            alert('Đăng ký thành công');
+            nav("/login");
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
-  // Hàm onSubmitForm khi người dùng bấm nút submit
-  const onSubmitForm: SubmitHandler<LoginInput> = async (data) => {
-    try {
-      // Call API đăng nhập
-      const res = await axios.post('http://localhost:3000/login', data);
-      // Lấy access token và lưu vào localStorage
-      if (res.status === 200) {
-        localStorage.setItem('token', res.data.accessToken);
-      }
-
-      alert('Đăng nhập thành công');
-      nav("/"); // Chuyển hướng đến trang admin sau khi đăng nhập thành công
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  return (
-    <div>
+    return (
+        <div>
     {/* Header */}
     <div className="flex flex-col md:flex-row h-screen bg-gray-50">
       {/* Left Side - Image */}
@@ -51,7 +49,7 @@ function Login() {
       {/* Right Side - Login Form */}
       <div className="w-full md:w-1/2 flex items-center justify-center p-8">
       <div className="w-full max-w-md">
-      <h1 className="text-3xl font-bold mb-2">Log in to Exclusive</h1>
+      <h1 className="text-3xl font-bold mb-2">Register to Exclusive</h1>
       <p className="text-gray-600 mb-8">Enter your details below</p>
 
         <form className="space-y-6" onSubmit={handleSubmit(onSubmitForm)}>
@@ -95,11 +93,8 @@ function Login() {
               type="submit"
               className="bg-red-500 text-white py-2 px-8 rounded hover:bg-red-600 transition duration-300"
             >
-              Log In
+              Register
             </button>
-            <h1 className="text-red-500 hover:underline">
-            Forgot Password?
-          </h1>
           </div>
         </form>
         {/* Forgot Password Link */}
@@ -110,11 +105,11 @@ function Login() {
         {/* Link to Register Page */}
         <div className="text-center mt-4">
           <p className="text-sm text-gray-600">
-            Don't have an account?{" "}
+            You have an account?{" "}
             <span
-              onClick={() => nav("/register")} // Điều hướng đến trang đăng ký khi nhấn
+              onClick={() => nav("/login")} // Điều hướng đến trang đăng ký khi nhấn
               className="text-red-500 hover:underline"                >
-              Register here
+              login here
             </span>
           </p>
         </div>
@@ -122,7 +117,7 @@ function Login() {
     </div>
     </div>
   </div>
-  );
+    );
 }
 
-export default Login;
+export default Register;

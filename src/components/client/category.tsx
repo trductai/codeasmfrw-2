@@ -2,8 +2,10 @@ import { HeartOutlined } from "@ant-design/icons";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { FaStar, FaRegHeart, FaRegEye } from 'react-icons/fa';
+import { useNavigate } from "react-router-dom";
 
 const Category = () => {
+  const navigate= useNavigate();
   interface IProduct {
     id: number;
     name: string;
@@ -15,7 +17,6 @@ const Category = () => {
     isNew?: boolean;
     discount?: number;
   }
-
   const [products, setProducts] = useState<IProduct[]>([]);
 
   const getProducts = async () => {
@@ -53,13 +54,15 @@ const Category = () => {
 
             {/* Product Image */}
             <div className="h-56 flex items-center justify-center">
+            <button onClick={()=>navigate(`/detail/${product.id}`)}>
               <img
                 src={product.image}
                 alt={product.name}
                 className="w-full h-full object-contain group-hover:opacity-75"  // Dùng object-contain để vừa khung mà không bị cắt xén
               />
-            </div>
+              </button>
 
+            </div>
             {/* Product Info */}
             <div className="p-4">
               <h4 className="text-lg font-medium text-gray-900 mb-2">{product.name}</h4>

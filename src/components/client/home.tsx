@@ -1,13 +1,19 @@
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Product } from "../types/Product";
 import { HomeIcon, PlusCircleIcon, ArrowRightOnRectangleIcon as LoginIcon, UserPlusIcon as UserAddIcon } from "@heroicons/react/24/outline";
 import { FaMobileAlt, FaLaptop, FaCamera, FaGamepad, FaHeadphones, FaClock, FaCheckCircle, FaTruck, FaSearch, FaRegUser, FaShoppingCart, FaApple } from 'react-icons/fa';
 import { FaStar, FaRegHeart, FaRegEye } from 'react-icons/fa';
+import { useNavigate, useParams } from "react-router-dom";
+import { cartContext } from "../context/cartContext";
+import { TypeCart } from "../../interface/cart";
 
 function Homepage() {
-  
+  const { id } = useParams<{ id: string }>(); // Đảm bảo khai báo kiểu đúng cho id
+
+  const navigate=useNavigate();
   interface Product {
+    id: number;
     name: string;
     image: string;
     price: number;
@@ -31,6 +37,23 @@ function Homepage() {
     const [searchQuery, setSearchQuery] = useState<string>(''); // State cho từ khóa tìm kiếm
     const [currentPage, setCurrentPage] = useState<number>(1); // Trang hiện tại
     const [productsPerPage] = useState<number>(6); // Số sản phẩm mỗi trang
+    const {cartstate,dispatch} = useContext(cartContext)
+    const [bestSellingProducts, setBestSellingProducts] = useState<any[]>([]);
+  const [otherProducts, setOtherProducts] = useState<any[]>([]);
+    useEffect(()=>{
+      (async()=>{
+          try {
+              const token = localStorage.getItem("token")
+              const config = {
+                  headers: {'Authorization':`Bearer ${token}`}
+              }
+              const {data} = await axios.get(`http://localhost:3000/carts`,config)
+              dispatch({type:TypeCart.updateCart,payload:data.data.Items})
+          } catch (error) {
+              
+          }
+      })()
+  },[])
     interface CategoryItem {
       name: string;
       icon: JSX.Element;
@@ -47,35 +70,40 @@ function Homepage() {
     ];
     
     // Lấy danh sách sản phẩm từ API
-    const getList = async () => {
-        try {
-            const { data } = await axios.get('http://localhost:3000/products');
-            setProducts(data);
-        } catch (error) {
-            console.log(error);
-        }
-    };
+    // const getList = async () => {
+    //     try {
+    //         const { data } = await axios.get('http://localhost:3000/products');
+    //         setProducts(data);
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // };
+    // const getProducts = async () => {
+    //   try {
+    //     const { data } = await axios.get("http://localhost:3000/book");  // API lấy dữ liệu từ database 'book'
+    //     setBooks(data);
+    //   } catch (error) {
+    //     console.error(error);
+    //   }
+    // };
+    // Hàm xóa sản phẩm
+   
     const getProducts = async () => {
       try {
-        const { data } = await axios.get("http://localhost:3000/book");  // API lấy dữ liệu từ database 'book'
-        setBooks(data);
+        const { data } = await axios.get("http://localhost:3000/book");
+        const bestSellers = data.filter((product: any) => product.bestSelling === true);
+        const others = data.filter((product: any) => product.bestSelling !== true);
+        
+        setBestSellingProducts(bestSellers); // Sản phẩm best selling
+        setOtherProducts(others); // Sản phẩm còn lại
       } catch (error) {
         console.error(error);
       }
     };
-    // Hàm xóa sản phẩm
-    const delPro = async (id: number) => {
-        try {
-            if (window.confirm('Are you sure?')) {
-                await axios.delete('http://localhost:3000/products/' + id);
-                alert('Delete success');
-                getList(); // Cập nhật lại danh sách sản phẩm
-            }
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
+  
+    useEffect(() => {
+      getProducts(); // Load sản phẩm khi trang được tải
+    }, []);
     // Lọc sản phẩm dựa trên từ khóa tìm kiếm
     const filteredProducts = products.filter((product) =>
         product.name.toLowerCase().includes(searchQuery.toLowerCase()) // Tìm kiếm theo tên sản phẩm
@@ -103,10 +131,7 @@ function Homepage() {
     // Tính tổng số trang
     const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
 
-    useEffect(() => {
-        getList(); // Lấy danh sách sản phẩm khi trang load
-        getProducts();
-    }, []);
+   
     const renderStars = (rating: number) => {
       const stars = [];
       for (let i = 0; i < 5; i++) {
@@ -152,6 +177,7 @@ function Homepage() {
       }, 1000);
       return () => clearInterval(timer);
     }, []);
+    
     return (
         <div>
             
@@ -289,7 +315,7 @@ function Homepage() {
 
       {/* Product Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-        {products.map((product, idx) => (
+      {bestSellingProducts.map((product, idx) => (
           <div
             key={idx}
             className="relative bg-gray-50 rounded-md p-4 flex flex-col gap-2"
@@ -306,11 +332,14 @@ function Homepage() {
 
             {/* Product image */}
             <div className="h-40 flex items-center justify-center">
+             
+              <button onClick={()=>navigate(`/detail/${product.id}`)}>
               <img
                 src={product.image}
                 alt={product.name}
                 className="max-h-full object-contain"
               />
+              </button>
             </div>
 
             {/* Product info */}
@@ -326,10 +355,15 @@ function Homepage() {
             <div className="flex items-center gap-1 text-yellow-500 text-sm">
               {Array.from({ length: Math.floor(product.rating) }).map((_, i) => (
                 <FaStar key={i} />
+                
               ))}
               <span className="text-gray-500 ml-2">({product.reviews})</span>
             </div>
+            <button className="w-full bg-black text-white py-2 rounded-md hover:bg-gray-800">
+                Add to Cart
+              </button>
           </div>
+          
         ))}
       </div>
     </div>
@@ -385,7 +419,7 @@ function Homepage() {
       </div>
     </div>
 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-        {books.map((book, idx) => (
+{otherProducts.map((book, idx) => (
           <div
             key={idx}
             className="relative bg-gray-50 rounded-md p-4 flex flex-col gap-2"
@@ -402,13 +436,18 @@ function Homepage() {
 
             {/* Product image */}
             <div className="h-40 flex items-center justify-center">
-              <img
-                src={book.image}
-                alt={book.name}
-                className="max-h-full object-contain"
-              />
-            </div>
+      <button
+        onClick={() => navigate(`/detail/${book.id}`)}  // Điều hướng khi click vào ảnh
+        className="flex items-center justify-center"  // Đảm bảo nút chứa ảnh sẽ căn giữa
+      >
+        <img
+          src={book.image}
+          alt={book.name}
+          className="max-h-full object-contain rounded-lg"  // Đảm bảo hình ảnh co giãn tốt và có góc bo tròn
+        />
+      </button>
 
+    </div>
             {/* book info */}
             <h4 className="text-sm font-medium">{book.name}</h4>
             <div className="flex items-center gap-2 text-sm">
@@ -425,8 +464,12 @@ function Homepage() {
               ))}
               <span className="text-gray-500 ml-2">({book.reviews})</span>
             </div>
+            <button className="w-full bg-black text-white py-2 rounded-md hover:bg-gray-800">
+                Add to Cart
+              </button>
           </div>
         ))}
+        
       </div>
       <div className="flex justify-center mt-8">
       <a href="/category">

@@ -23,7 +23,11 @@ const AdminSidebar = () => {
             { key: 'productlist_bestselling', label: 'Danh sách sản phẩm Best Selling' }
           ]
         },
-        { key: 'productadd', label: 'Thêm sản phẩm' }
+        { key: 'productadd', label: 'Thêm sản phẩm',
+        children: [
+          { key: 'product-add', label: 'Thêm sản phẩm list' },
+          { key: 'best-add', label: 'Thêm sản phẩm Best Selling' }
+        ] }
       ],
     },
     {
@@ -45,17 +49,20 @@ const AdminSidebar = () => {
   const onClick: MenuProps['onClick'] = ({ key }) => {
     switch(key){
       case 'dashboard':
-        navigate(`/dashboard`);
+        navigate(`/admin`);
         break;
       case 'productlist_all':
-        navigate(`/dashboard/product-list`);
+        navigate(`/admin/product-list`);
         break;
       case 'productlist_bestselling':
-        navigate(`/dashboard/productlist_bestselling`);
+        navigate(`/admin/productlist_bestselling`);
         break;
-      case 'productadd':
-        navigate(`/dashboard/product-add`);
+      case 'product-add':
+        navigate(`/admin/product-add`);
         break;
+          case 'best-add':
+            navigate(`/admin/best-add`);
+            break;
       // Add more cases as needed
     }
   };
